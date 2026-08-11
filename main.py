@@ -123,6 +123,10 @@ def do_the_thing(use_local_events=False, upload=False):
     for event in events:
         if "salsa" in event.name.lower():
             event.dance_types = ["SALSA"]
+        elif "line dancing" in event.name.lower():
+            event.dance_types = ["LINE_DANCING"]
+        elif "zouk" in event.name.lower():
+            event.dance_types = ["ZOUK"]
 
     events.sort(key=lambda e: e.start)
     filters = {
