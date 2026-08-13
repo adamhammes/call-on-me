@@ -120,13 +120,17 @@ def do_the_thing(use_local_events=False, upload=False):
     for ical, dance_type in ical_calendars:
         events += ical_parser.parse_ical(ical, start_at, dance_type)
 
+    event_overrides = {
+        "salsa": "SALSA",
+        "line dancing": "LINE_DANCING",
+        "zouk": "ZOUK",
+        "tango": "TANGO",
+    }
+
     for event in events:
-        if "salsa" in event.name.lower():
-            event.dance_types = ["SALSA"]
-        elif "line dancing" in event.name.lower():
-            event.dance_types = ["LINE_DANCING"]
-        elif "zouk" in event.name.lower():
-            event.dance_types = ["ZOUK"]
+        for name, _type in event_overrides.items():
+            if name in event.name.lower():
+                event.dance_types = [_type]
 
     events.sort(key=lambda e: e.start)
     filters = {
